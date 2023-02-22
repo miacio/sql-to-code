@@ -6,6 +6,7 @@ import (
 	"text/template"
 )
 
+// Table 表
 type Table struct {
 	Package           string  `json:"package"`             // 包名
 	Name              string  `json:"name"`                // 结构体名
@@ -15,6 +16,7 @@ type Table struct {
 	ContainsTimeField bool    `json:"contains_time_field"` // 是否存在时间字段
 }
 
+// Field 字段
 type Field struct {
 	IsPk          bool `json:"is_pk"`           // 是否为主键
 	IsAuto        bool `json:"is_auto"`         // 是否自增长
@@ -31,6 +33,7 @@ type Field struct {
 	FieldTag   string `json:"field_tag"`   // 标签
 }
 
+// ToCode 表转结构体
 func (t *Table) ToCode() (string, error) {
 	tpl, err := os.ReadFile("../tpl/struct.tpl")
 	if err != nil {
@@ -47,5 +50,9 @@ func (t *Table) ToCode() (string, error) {
 	if err := tl.Execute(&res, t); err != nil {
 		return "", err
 	}
-	return res.String(), nil
+	return CommonInitialisms(res.String()), nil
+}
+
+func ReadSql(val string) (*Table, error) {
+	return nil, nil
 }

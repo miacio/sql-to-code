@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// GetGormTag 获取gorm tag
 func (field *Field) GetGormTag() string {
 	gormTag := make([]string, 0)
 	gormTag = append(gormTag, "column:"+field.FieldName)
