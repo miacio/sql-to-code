@@ -1,0 +1,10 @@
+[mysql]
+host="172.16.4.200"
+prot=3306
+user="root"
+pwd="123456"
+database="uav_hunan"
+charset="utf8mb4"
+
+[ot]
+humpNaming=true
