@@ -20,6 +20,21 @@ database="test"
 
 [cfg]
 outDir="../model"
-tableName="user"
+tableNames=["user"]
 packageName="model"
 ```
+
+↑↑↑
+outDir is generate go code folder path
+
+tableNames is the user needs to configure the table name array that needs to generate the go file
+
+packageName is generate go code belong to package
+
+# run
+code run is go run ./main.go
+
+exe than go build
+
+### document
+github.com/gangming/sql2struct

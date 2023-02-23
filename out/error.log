@@ -1,4 +1,0 @@
-[2023-02-23 16:52:53]	error	D:/GoProject/src/sql-to-code/main.go:98	generate code file fail: %vopen ../tpl/struct.tpl: The system cannot find the path specified.
-[2023-02-23 16:52:53]	error	D:/GoProject/src/sql-to-code/main.go:98	generate code file fail: %vopen ../tpl/struct.tpl: The system cannot find the path specified.
-[2023-02-23 16:52:53]	error	D:/GoProject/src/sql-to-code/main.go:98	generate code file fail: %vopen ../tpl/struct.tpl: The system cannot find the path specified.
-[2023-02-23 16:52:53]	error	D:/GoProject/src/sql-to-code/main.go:98	generate code file fail: %vopen ../tpl/struct.tpl: The system cannot find the path specified.
