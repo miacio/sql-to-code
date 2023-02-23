@@ -44,7 +44,7 @@ func (t *Table) ToCode() (string, error) {
 
 	for i := range t.Fields {
 		field := t.Fields[i]
-		tag := "`" + field.GetGormTag() + "`"
+		tag := "`" + field.GetGormTag() + " json:\"" + field.FieldName + "\"" + "`"
 		t.Fields[i].FieldTag = tag
 	}
 
