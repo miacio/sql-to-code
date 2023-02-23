@@ -2,6 +2,7 @@ package lib_test
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/miacio/sql-to-code/lib"
@@ -48,4 +49,17 @@ func TestTo(t *testing.T) {
 		return
 	}
 	fmt.Println(val)
+}
+
+func TestReadSQL(t *testing.T) {
+	sql, err := os.ReadFile("../testfile/load.input")
+	if err != nil {
+		t.Fatal("read testfile/load.input failed", err)
+	}
+
+	err = lib.GenerateCodeFile("../model", "model", string(sql))
+	if err != nil {
+		t.Fatal("generate code file failed", err)
+	}
+
 }

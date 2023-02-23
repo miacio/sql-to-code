@@ -10,5 +10,5 @@ type {{.Name}} struct {
 
 // TableName {{.Name}} {{.TableName}}
 func ({{.Name}}) TableName() string {
-    return {{.TableName}}
+    return "{{.TableName}}"
 }
