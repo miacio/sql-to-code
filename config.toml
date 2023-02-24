@@ -8,5 +8,5 @@ charset="utf8mb4"
 
 [cfg]
 outDir="./model"
-tableName=["user"]
+tableNames=["user"]
 packageName="model"
