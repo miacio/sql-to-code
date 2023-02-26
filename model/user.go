@@ -11,6 +11,7 @@ type User struct {
 	Email      string    `gorm:"column:email;not null;default:''" json:"email" toml:"email"`                  // Email email 用户邮箱
 	Phone      string    `gorm:"column:phone" json:"phone" toml:"phone"`                                      // Phone phone 手机号
 	Role       int8      `gorm:"column:role;not null" json:"role" toml:"role"`                                // Role role 用户角色  1:超级管理员 2:其他
+	Sex        IBool     `gorm:"column:sex;default:b'0'" json:"sex" toml:"sex"`                               // Sex sex 用户性别 0 男 1 女
 	WebsiteURL string    `gorm:"column:website_url" json:"websiteURL" toml:"websiteURL"`                      // WebsiteURL website_url 个人主页
 	Remark     string    `gorm:"column:remark" json:"remark" toml:"remark"`                                   // Remark remark 备注
 	UserSeat   IPoint    `gorm:"column:user_seat" json:"userSeat" toml:"userSeat"`                            // UserSeat user_seat 用户位置

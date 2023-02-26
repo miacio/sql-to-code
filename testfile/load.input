@@ -5,6 +5,7 @@ CREATE TABLE user (
     email varchar(64) NOT NULL DEFAULT '' COMMENT '用户邮箱',
     phone char(11) DEFAULT NULL COMMENT '手机号',
     role tinyint(1) NOT NULL COMMENT '用户角色  1:超级管理员 2:其他',
+    sex bit(1) default b'0' null comment '用户性别 0 男 1 女',
 
     website_url varchar(255) DEFAULT NULL COMMENT '个人主页',
     `remark` text COMMENT '备注',

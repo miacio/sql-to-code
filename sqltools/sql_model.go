@@ -80,7 +80,7 @@ func (field *Field) GetGormTag() string {
 // upperFirstLetter 是否要求首字母大写
 // humpNaming 是否要求驼峰命名
 func (field *Field) GenerateTag(tagName string, upperFirstLetter, humpNaming bool) string {
-	var tag string
+	tag := field.FieldName
 	if humpNaming {
 		tag = lib.HumpNaming(field.FieldName)
 	}
