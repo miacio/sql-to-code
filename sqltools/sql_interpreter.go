@@ -24,12 +24,20 @@ func GetByIndexPattern(val, patt string, index int) string {
 
 // GetTableName 获取表名
 func GetTableName(line string) string {
-	return GetByIndexPattern(line, "(?i)CREATE TABLE `(.*)`", 1)
+	result := GetByIndexPattern(line, "(?i)CREATE TABLE `(.*)`", 1)
+	if result == "" {
+		result = strings.Split(GetByIndexPattern(line, "(?i)CREATE TABLE (.*)", 1), " ")[0]
+	}
+	return result
 }
 
 // GetTableComment 获取表注释
 func GetTableComment(line string) string {
-	return GetByIndexPattern(line, "(?i)\\).*COMMENT='(.*)'", 1)
+	result := GetByIndexPattern(line, "(?i)\\).*COMMENT='(.*)'", 1)
+	if result == "" {
+		result = GetByIndexPattern(line, "(?i)\\).*COMMENT = '(.*)'", 1)
+	}
+	return result
 }
 
 // GetPrimaryKey 获取表主键
@@ -74,6 +82,9 @@ func FieldSqlToStruct(line string) Field {
 
 	comment = GetByIndexPattern(line, "(?i)COMMENT '(.*)'", 1)
 	defaultVal = strings.Split(GetByIndexPattern(line, "(?i)DEFAULT (.*) ", 1), " ")[0]
+	if defaultVal == "NULL" {
+		defaultVal = ""
+	}
 
 	upLine := strings.ToUpper(line)
 	if strings.Contains(upLine, "UNSIGNED") {

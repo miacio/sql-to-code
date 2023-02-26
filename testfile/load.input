@@ -1,4 +1,4 @@
-CREATE TABLE `user` (
+CREATE TABLE user (
     `id` bigint(11) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `user_id` int(11) NOT NULL COMMENT '用户 id',
     `email` varchar(64) NOT NULL DEFAULT '' COMMENT '用户邮箱',
