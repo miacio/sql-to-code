@@ -14,6 +14,13 @@ import (
 // upperFirstLetter 字段标签中名称首字母是否大写
 // humpNaming 字段标签中是否使用驼峰命名
 func GenerateTable(packageName, sql string, needTag []string, upperFirstLetter, humpNaming bool, fieldOtherTypes []FieldOtherType) Table {
+	sqlLines := make([]string, 0)
+	for _, sqlLine := range strings.Split(sql, "\n") {
+		if strings.TrimSpace(sqlLine) != "" {
+			sqlLines = append(sqlLines, sqlLine)
+		}
+	}
+	sql = strings.Join(sqlLines, "\n")
 	tableName := GetTableName(string(sql))
 	tableComment := GetTableComment(string(sql))
 	parimaryKey := GetPrimaryKey(string(sql))
