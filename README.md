@@ -1,5 +1,5 @@
 # sql-to-code
-go read db table to code
+go read db table to code tool [中文](https://github.com/miacio/sql-to-code/blob/master/README_ZH.md)
 
 # prepare
 install goimports

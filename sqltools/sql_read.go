@@ -5,6 +5,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/miacio/sql-to-code/lib"
 )
 
 // GenerateTable 生成表结构体
@@ -27,7 +29,7 @@ func GenerateTable(packageName, sql string, needTag []string, upperFirstLetter, 
 
 	table := Table{
 		Package:   packageName,
-		Name:      HumpNaming(tableName),
+		Name:      lib.HumpNaming(tableName),
 		TableName: tableName,
 		Comment:   tableComment,
 		Fields:    make([]Field, 0),
@@ -41,7 +43,7 @@ func GenerateTable(packageName, sql string, needTag []string, upperFirstLetter, 
 		if parimaryKey != "" && field.FieldName == parimaryKey {
 			field.IsPrimaryKey = true
 		}
-		field.Name = HumpNaming(field.FieldName)
+		field.Name = lib.HumpNaming(field.FieldName)
 		if field.IsUnsigned {
 			field.Type = MySqlUIntType[field.FieldType]
 		} else {
