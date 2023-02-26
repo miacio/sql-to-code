@@ -82,7 +82,7 @@ func (field *Field) GetGormTag() string {
 func (field *Field) GenerateTag(tagName string, upperFirstLetter, humpNaming bool) string {
 	var tag string
 	if humpNaming {
-		tag = HumpNaming(field.FieldName)
+		tag = lib.HumpNaming(field.FieldName)
 	}
 	if !upperFirstLetter {
 		tag = strings.ToLower(tag[:1]) + tag[1:]
