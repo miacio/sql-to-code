@@ -62,7 +62,7 @@ func GetFieldSql(sql string) []string {
 func FieldSqlToStruct(line string) Field {
 	line = strings.TrimSpace(line)
 	var fieldName, fieldType, comment, defaultVal string
-	var isNotNull, isUnsigned, isPrimaryKey, isAuto bool
+	var isNotNull, isUnsigned, isPrimaryKey, isAutoIncrement, isAutoCreateTime, isAutoUpdateTime bool
 
 	if line[0] == '`' {
 		fieldName = GetByIndexPattern(line, "`(.*)`", 1)
@@ -74,9 +74,6 @@ func FieldSqlToStruct(line string) Field {
 
 	comment = GetByIndexPattern(line, "(?i)COMMENT '(.*)'", 1)
 	defaultVal = strings.Split(GetByIndexPattern(line, "(?i)DEFAULT (.*) ", 1), " ")[0]
-	// if strings.Contains(defaultVal, "CURRENT_TIMESTAMP") {
-	// 	defaultVal = ""
-	// }
 
 	upLine := strings.ToUpper(line)
 	if strings.Contains(upLine, "UNSIGNED") {
@@ -90,14 +87,24 @@ func FieldSqlToStruct(line string) Field {
 	}
 
 	if strings.Contains(upLine, "AUTO_INCREMENT") {
-		isAuto = true
+		isAutoIncrement = true
+	}
+
+	if strings.Contains(upLine, "UPDATE CURRENT_TIMESTAMP") {
+		defaultVal = ""
+		isAutoUpdateTime = true
+	} else if strings.Contains(upLine, "CURRENT_TIMESTAMP") {
+		defaultVal = ""
+		isAutoCreateTime = true
 	}
 
 	return Field{
-		IsUnsigned:   isUnsigned,
-		IsNotNull:    isNotNull,
-		IsPrimaryKey: isPrimaryKey,
-		IsAuto:       isAuto,
+		IsUnsigned:       isUnsigned,
+		IsNotNull:        isNotNull,
+		IsPrimaryKey:     isPrimaryKey,
+		IsAutoIncrement:  isAutoIncrement,
+		IsAutoCreateTime: isAutoCreateTime,
+		IsAutoUpdateTime: isAutoUpdateTime,
 
 		FieldName:  fieldName,
 		FieldType:  fieldType,

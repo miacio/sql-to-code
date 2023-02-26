@@ -32,10 +32,12 @@ func (t *Table) ToCode() (string, error) {
 
 // Field 字段
 type Field struct {
-	IsPrimaryKey bool `json:"is_primary_key"` // 是否为主键
-	IsAuto       bool `json:"is_auto"`        // 是否自增长
-	IsNotNull    bool `json:"is_not_null"`    // 是否不允许为空
-	IsUnsigned   bool `json:"is_unsigned"`    // 是否使用了无符号参数类型
+	IsPrimaryKey     bool `json:"is_primary_key"`      // 是否为主键
+	IsAutoIncrement  bool `json:"is_auto_increment"`   // 是否自增长
+	IsAutoCreateTime bool `json:"is_auto_create_time"` // 是否创建时追踪当前时间
+	IsAutoUpdateTime bool `json:"is_auto_update_time"` // 是否创建/修改时追踪当前时间
+	IsNotNull        bool `json:"is_not_null"`         // 是否不允许为空
+	IsUnsigned       bool `json:"is_unsigned"`         // 是否使用了无符号参数类型
 
 	Name       string `json:"name"`        // 结构体属性名称
 	Type       string `json:"type"`        // 结构体字段类型
@@ -54,10 +56,17 @@ func (field *Field) GetGormTag() string {
 	if field.IsPrimaryKey {
 		gormTag = append(gormTag, "primaryKey")
 		// 判断是否为自增长 (仅主键字段可用)
-		if field.IsAuto {
+		if field.IsAutoIncrement {
 			gormTag = append(gormTag, "autoIncrement")
 		}
 	}
+	if field.IsAutoCreateTime {
+		gormTag = append(gormTag, "autoCreateTime")
+	}
+	if field.IsAutoUpdateTime {
+		gormTag = append(gormTag, "autoUpdateTime")
+	}
+
 	if field.IsNotNull {
 		gormTag = append(gormTag, "not null")
 	}
