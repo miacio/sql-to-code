@@ -56,6 +56,10 @@ dbType is in database type
     "importPath": "",
     "fieldType": "IPoint",
     "dbType": "point"
+},{
+    "importPath": "",
+    "fieldType": "IBool",
+    "dbType": "bit"
 }]
 ```
 

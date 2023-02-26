@@ -73,6 +73,10 @@ testfile/fieldOtherType.json为例:
     "importPath": "",
     "fieldType": "IPoint",
     "dbType": "point"
+},{
+    "importPath": "",
+    "fieldType": "IBool",
+    "dbType": "bit"
 }]
 ```
 
