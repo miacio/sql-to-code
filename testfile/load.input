@@ -6,7 +6,8 @@ CREATE TABLE `user` (
     `role` tinyint(1) NOT NULL COMMENT '用户角色  1:超级管理员 2:其他',
     `website_url` varchar(255) DEFAULT NULL COMMENT '个人主页',
     `remark` text COMMENT '备注',
+    `user_seat` point(8, 8) COMMENT '用户位置',
     `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
     `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-    `deleted_at` datetime(6) DEFAULT NULL COMMENT '移除时间',
+    `deleted_at` datetime(6) DEFAULT NULL COMMENT '移除时间'
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户表'

@@ -22,6 +22,10 @@ database="test"
 outDir="../model"
 tableNames=["user"]
 packageName="model"
+needTag=["gorm", "json"]
+upperFirstLetter=false
+humpNaming=false
+importOtherType="./fieldOtherType.json"
 ```
 
 ↑↑↑
@@ -31,10 +35,36 @@ tableNames is the user needs to configure the table name array that needs to gen
 
 packageName is generate go code belong to package
 
+needTag is generate go code tag array
+
+upperFirstLetter is set tag value first letter is upper, gorm is not in this upperFirstLetter
+
+humpNaming is set tag value use hump naming func, gorm is not in this humpNaming
+
+importOtherType is import other database type config, see test: sqltools/sqltools_test.go func
+
+### (importOtherType.json) - this json is array
+
+object param importPath is import other package url
+
+fieldType is other package param
+
+dbType is in database type
+
+```
+[{
+    "importPath": "",
+    "fieldType": "IPoint",
+    "dbType": "point"
+}]
+```
+
 # run
 code run is go run ./main.go
 
 exe than go build
 
 ### document
-github.com/gangming/sql2struct
+https://github.com/gangming/sql2struct
+
+http://www.javashuo.com/article/p-eraqqmsn-a.html

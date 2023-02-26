@@ -2,12 +2,14 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
 
 	"github.com/miacio/sql-to-code/lib"
 	"github.com/miacio/sql-to-code/log"
+	"github.com/miacio/sql-to-code/sqltools"
 	"github.com/spf13/viper"
 )
 
@@ -21,9 +23,13 @@ type c_db struct {
 }
 
 type c_cfg struct {
-	OutDir      string   `toml:"outDir"`      // 代码输出目录
-	TableNames  []string `toml:"tableName"`   // 数据库表名
-	PackageName string   `toml:"packageName"` // 输出代码的库名
+	OutDir           string   `toml:"outDir"`           // 代码输出目录
+	TableNames       []string `toml:"tableName"`        // 数据库表名
+	PackageName      string   `toml:"packageName"`      // 输出代码的库名
+	NeedTag          []string `toml:"needTag"`          // 生成对应的标签 gorm 标签不参与下边的首字母是否大写及是否驼峰
+	UpperFirstLetter bool     `toml:"upperFirstLetter"` // 生成的标签值首字母是否大写
+	HumpNaming       bool     `toml:"humpNaming"`       // 生成标签值是否使用驼峰命名
+	ImportOtherType  string   `toml:"importOtherType"`  // 引用其它类型(文件地址)
 }
 
 var (
@@ -82,6 +88,20 @@ func main() {
 		return
 	}
 
+	var fieldOtherTypes []sqltools.FieldOtherType
+
+	if cfgParam.ImportOtherType != "" {
+		importOtherTypeFile, err := os.ReadFile(cfgParam.ImportOtherType)
+		if err != nil {
+			log.GetLogger().Errorf("viper read cfg param importOtherType file fail: %v", err)
+			return
+		}
+		if err := json.Unmarshal(importOtherTypeFile, &fieldOtherTypes); err != nil {
+			log.GetLogger().Errorf("viper read cfg param importOtherType file fail: %v", err)
+			return
+		}
+	}
+
 	if err := dbParam.LinkDB(); err != nil {
 		log.GetLogger().Errorf("db link fail: %v", err)
 		return
@@ -92,8 +112,9 @@ func main() {
 		log.GetLogger().Errorf("get db sql fail: %v", err)
 		return
 	}
+
 	for _, sql := range sqls {
-		err := lib.GenerateCodeFile(cfgParam.OutDir, cfgParam.PackageName, sql)
+		err := sqltools.GenerateCodeFile(cfgParam.OutDir, cfgParam.PackageName, sql, cfgParam.NeedTag, cfgParam.UpperFirstLetter, cfgParam.HumpNaming, fieldOtherTypes)
 		if err != nil {
 			log.GetLogger().Error("generate code file fail: %v", err)
 			continue

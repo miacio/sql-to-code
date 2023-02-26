@@ -10,3 +10,7 @@ charset="utf8mb4"
 outDir="./model"
 tableNames=["user"]
 packageName="model"
+needTag=["gorm", "json"]
+upperFirstLetter=false
+humpNaming=false
+importOtherType="./fieldOtherType.json"

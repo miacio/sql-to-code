@@ -1,9 +1,6 @@
 package lib
 
 import (
-	"os"
-	"os/exec"
-	"path/filepath"
 	"strings"
 )
 
@@ -37,38 +34,4 @@ func HumpNaming(s string) string {
 		result += string(v)
 	}
 	return result
-}
-
-// GenerateCodeFile 生成代码文件
-func GenerateCodeFile(dir, pkName, sql string) error {
-	table := ReadSql(pkName, sql)
-	err := os.MkdirAll(dir, 0755)
-	if err != nil {
-		return err
-	}
-
-	code, err := table.ToCode()
-	if err != nil {
-		return err
-	}
-
-	fileName := filepath.Join(dir, table.TableName+".go")
-	fd, err := os.Create(fileName)
-	if err != nil {
-		return err
-	}
-	defer fd.Close()
-	_, err = fd.Write([]byte(code))
-	if err != nil {
-		return err
-	}
-	_, err = exec.Command("goimports", "-l", "-w", dir).Output()
-	if err != nil {
-		return err
-	}
-	_, err = exec.Command("gofmt", "-l", "-w", dir).Output()
-	if err != nil {
-		return err
-	}
-	return nil
 }
