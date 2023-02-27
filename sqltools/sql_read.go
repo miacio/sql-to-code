@@ -15,7 +15,7 @@ import (
 // needTag 需要生成的字段标签 gorm标签与后置配置无关
 // upperFirstLetter 字段标签中名称首字母是否大写
 // humpNaming 字段标签中是否使用驼峰命名
-func GenerateTable(packageName, sql string, needTag []string, upperFirstLetter, humpNaming bool, fieldOtherTypes []FieldOtherType) Table {
+func GenerateTable(packageName, sql string, needTag []string, upperFirstLetter, humpNaming bool, fieldOtherTypes []lib.FieldOtherType) Table {
 	sqlLines := make([]string, 0)
 	for _, sqlLine := range strings.Split(sql, "\n") {
 		if strings.TrimSpace(sqlLine) != "" {
@@ -88,7 +88,7 @@ func GenerateTable(packageName, sql string, needTag []string, upperFirstLetter, 
 }
 
 // GenerateCodeFile 生成代码文件
-func GenerateCodeFile(dir, pkName, sql string, needTag []string, upperFirstLetter, humpNaming bool, fieldOtherTypes []FieldOtherType) error {
+func GenerateCodeFile(dir, pkName, sql string, needTag []string, upperFirstLetter, humpNaming bool, fieldOtherTypes []lib.FieldOtherType) error {
 	table := GenerateTable(pkName, sql, needTag, upperFirstLetter, humpNaming, fieldOtherTypes)
 	err := os.MkdirAll(dir, 0755)
 	if err != nil {

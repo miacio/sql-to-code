@@ -89,10 +89,3 @@ func (field *Field) GenerateTag(tagName string, upperFirstLetter, humpNaming boo
 	}
 	return fmt.Sprintf("%s:\"%s\"", tagName, tag)
 }
-
-// FieldOtherType 字段其它类型引入
-type FieldOtherType struct {
-	ImportPath string `json:"importPath" toml:"importPath"` // 引用的包地址
-	FieldType  string `json:"fieldType" toml:"fieldType"`   // 代码中字段类型
-	DbType     string `json:"dbType" toml:"dbType"`         // 数据库对应的类型
-}

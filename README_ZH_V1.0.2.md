@@ -13,7 +13,16 @@ go get -v golang.org/x/tools/cmd/goimports
 go install golang.org/x/tools/cmd/goimports
 ```
 
-设置配置文件 (config.toml)
+设置配置文件 (config.toml) # 版本变更: 
+
+1、新增webServer配置,为true时则cfg中其他参数配置均失效,服务启用web服务器模式
+
+2、新增application配置组,用于配置web服务参数
+
+2.1、application.port参数,用于配置web服务端口号
+
+2.2、application.useHttps参数,如果启用则将读取pemFile与keyFile配置用于启动https服务
+
 ```
 [db]
 host="127.0.0.1"
@@ -30,6 +39,15 @@ needTag=["gorm", "json"]
 upperFirstLetter=false
 humpNaming=false
 importOtherType="./fieldOtherType.json"
+webServer=true
+
+[application]
+port=8080
+useHttps=false
+pemFile=""
+keyFile=""
+
+
 ```
 
 ↑↑↑
@@ -93,6 +111,3 @@ testfile/fieldOtherType.json为例:
 https://github.com/gangming/sql2struct
 
 http://www.javashuo.com/article/p-eraqqmsn-a.html
-
-### 前瞻v1.0.2版本
-[v1.0.2版本]https://github.com/miacio/sql-to-code/blob/dev-v1.0.2/README_ZH_V1.0.2.md

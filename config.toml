@@ -1,9 +1,9 @@
 [db]
 host="127.0.0.1"
-port=3306
+port=55000
 user="root"
 password="123456"
-database="test"
+database="miajiodb"
 charset="utf8mb4"
 
 [cfg]
@@ -14,3 +14,10 @@ needTag=["gorm", "json"]
 upperFirstLetter=false
 humpNaming=false
 importOtherType="./fieldOtherType.json"
+webServer=false
+
+# [application]
+# port=8080
+# useHttps=false
+# pemFile=""
+# keyFile=""
