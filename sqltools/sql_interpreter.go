@@ -109,6 +109,8 @@ func FieldSqlToStruct(line string) Field {
 		isAutoCreateTime = true
 	}
 
+	defaultVal = strings.ReplaceAll(defaultVal, "'", "")
+
 	return Field{
 		IsUnsigned:       isUnsigned,
 		IsNotNull:        isNotNull,
