@@ -11,13 +11,9 @@ func TlsHandler(port string) gin.HandlerFunc {
 			SSLRedirect: true,
 			SSLHost:     port,
 		})
-		err := secureMiddleware.Process(c.Writer, c.Request)
-
-		// If there was an error, do not continue.
-		if err != nil {
+		if err := secureMiddleware.Process(c.Writer, c.Request); err != nil {
 			return
 		}
-
 		c.Next()
 	}
 }

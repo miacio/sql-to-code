@@ -81,23 +81,26 @@ func init() {
 		return
 	}
 
-	if err := v.UnmarshalKey("db", &dbParam); err != nil {
-		log.GetLogger().Errorf("viper read db param fail: %v", err)
-		return
-	}
-
 	if err := v.UnmarshalKey("cfg", &CfgParam); err != nil {
 		log.GetLogger().Errorf("viper read cfg param fail: %v", err)
 		return
 	}
 
-	// 是否以Web服务模式启动, 如果是则拉取application参数
+	// 是否以Web服务模式启动, 如果是则拉取application参数, 并关闭数据库连接模式及其他参数配置模式
 	if CfgParam.WebServer {
 		if err := v.UnmarshalKey("application", &Application); err != nil {
 			log.GetLogger().Errorf("viper read application param fail: %v", err)
 		}
+		return
 	}
 
+	// dbParam 数据库配置项
+	if err := v.UnmarshalKey("db", &dbParam); err != nil {
+		log.GetLogger().Errorf("viper read db param fail: %v", err)
+		return
+	}
+
+	// 外部应用项
 	if CfgParam.ImportOtherType != "" {
 		importOtherTypeFile, err := os.ReadFile(CfgParam.ImportOtherType)
 		if err != nil {
@@ -110,6 +113,7 @@ func init() {
 		}
 	}
 
+	// 数据库连接项
 	if err := dbParam.LinkDB(); err != nil {
 		log.GetLogger().Errorf("db link fail: %v", err)
 		return

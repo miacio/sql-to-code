@@ -7,6 +7,7 @@ import (
 	"github.com/miacio/sql-to-code/app"
 	"github.com/miacio/sql-to-code/lib"
 	"github.com/miacio/sql-to-code/log"
+	"github.com/miacio/sql-to-code/router"
 	"github.com/miacio/sql-to-code/sqltools"
 )
 
@@ -26,8 +27,7 @@ func main() {
 
 func webServer() {
 	r := gin.Default()
-	r.GET("/", app.PingApp.Pong)
-	r.GET("/ping", app.PingApp.Pong)
+	router.RunRouter(r)
 
 	webPort := fmt.Sprintf(":%d", lib.Application.Port)
 	if lib.Application.UseHttps {
